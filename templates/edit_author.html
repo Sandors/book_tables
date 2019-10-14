@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>编辑作者</title>
+    <link rel="stylesheet" href="\static\bs\css\bootstrap.css">
+</head>
+<body>
+
+<h3 class="text-center">编辑作者</h3>
+
+<dev class="container">
+    <dev class="row">
+        <dev class="col-lg-6 col-md-offset-3">
+            <form action="" method="post">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label for="">名字</label>
+                    <input type="text" name="name" class="form-control" value="{{ author_obj.name }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="">年龄</label>
+                    <input type="text" name="age" class="form-control" value="{{ author_obj.age }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="">详情id</label>
+                    <select name="authordetail_id" id=" " class="form-control" >
+
+{#                            {% for authordetail in authordetail_list %}#}
+                            {% for authordetail in list1 %}
+
+{#                                    {% if author_obj.authorDetail_id == authordetail.nid %}#}
+                                    {% if author_obj.authorDetail_id == authordetail %}
+
+{#                                        <option selected value="{{ authordetail.pk }}">{{ authordetail.nid }}</option>}#}
+                                        <option selected  value="{{ authordetail }}">{{ authordetail }}</option>}
+                                    {% else%}
+                                        <option value="{{ authordetail }}">{{ authordetail }}</option>}
+
+                                    {% endif %}
+
+                            {% endfor %}
+
+                    </select>
+
+                </div>
+
+                <input type="submit" class="btn btn-default">
+
+            </form>
+        </dev>
+    </dev>
+</dev>
+
+
+</body>
+</html>

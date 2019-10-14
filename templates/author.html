@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>作者</title>
+    <link rel="stylesheet" href="\static\bs\css\bootstrap.css">
+</head>
+<body>
+
+<h3 class="text-center">作者列表</h3>
+
+
+<dev class="container">
+    <dev class="row">
+        <dev class="col-lg-6 col-md-offset-3">
+            <a href="authors/add" class="btn btn-primary">添加作者</a>
+            <a href="/books/" class="btn btn-primary">书籍列表</a>
+            <a href="/authordetails/" class="btn btn-primary">作者详情列表</a>
+            <a href="/publishs/" class="btn btn-primary">出版社列表</a>
+
+            <table class="table table-bordered table-hover table-striped">
+                <thead class="bg-primary">
+                    <tr>
+                        <th>编号</th>
+                        <th>作者</th>
+                        <th>年龄</th>
+                        <th>地址</th>
+                        <th>authorDetail_id</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for author in author_list %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ author.name }}</td>
+                            <td>{{ author.age }}</td>
+                            <td>{{ author.authorDetail.addr }}</td>
+                            <td>{{ author.authorDetail_id }}</td>
+
+                        <td>
+                            <a href="/authors/{{ author.pk }}/delete/" class="btn btn-danger">删除</a>
+                            <a href="/authors/{{ author.pk }}/change/" class="btn btn-warning">编辑</a>
+                        </td>
+                        </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        </dev>
+    </dev>
+</dev>
+
+
+</body>
+</html>
