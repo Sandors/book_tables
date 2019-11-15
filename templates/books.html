@@ -31,7 +31,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for book in book_list %}
+                    {% for book in current_page %}
                         <tr>
                             <td>{{ forloop.counter }}</td>
                             <td>{{ book.title }}</td>
@@ -58,7 +58,38 @@
                     {% endfor %}
 
                 </tbody>
+
             </table>
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+{#                    <li><a href="?page={{ current_page_num|add:-1 }}" aria-label="Previous"><span aria-hidden="true">上一页</span></a></li>#}
+                    {#  首页上一页锁定                   #}
+                    {% if current_page.has_previous %}
+                    <li><a href="?page={{ current_page.previous_page_number }}" aria-label="Previous"><span aria-hidden="true">上一页</span></a></li>
+                    {% else %}
+                    <li class="disabled"><a href="" aria-label="Previous"><span aria-hidden="true">上一页</span></a></li>
+                    {% endif %}
+
+                    {#  循环页码    #}
+                    {% for item in page_range %}
+                        {# class=active 页码加深效果 #}
+                        {% if current_page == item %}
+                            <li class="active"><a href="?page={{ item }}">{{ item }}</a></li>
+                        {% else %}
+                            <li><a href="?page={{ item }}">{{ item }}</a></li>
+
+                        {% endif %}
+                    {% endfor %}
+
+{#                    <li><a href="?page={{ current_page_num|add:1 }}" aria-label="Next"><span aria-hidden="true">下一页</span></a></li>#}
+                    {% if current_page.has_next %}
+                        <li><a href="?page={{ current_page.next_page_number }}" aria-label="Next"><span aria-hidden="true">下一页</span></a></li>
+                    {% else %}
+                        <li class="disabled"><a href="" aria-label="Next"><span aria-hidden="true">下一页</span></a></li>
+                    {% endif %}
+
+                </ul>
+            </nav>
         </dev>
     </dev>
 </dev>

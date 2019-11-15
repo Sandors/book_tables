@@ -1,5 +1,7 @@
 from django.shortcuts import render,HttpResponse,redirect
 from books.models import *
+from django.core.paginator import Paginator,EmptyPage   # 分页器
+
 
 # Create your views here.
 
@@ -27,7 +29,31 @@ def add_book(request):
 def books(request):
 	book_list=Books.objects.all()
 
-	return render(request,"books.html",{"book_list":book_list})
+	# 分页器
+	paginator=Paginator(book_list,2)
+	# print('page_range',paginator.page_range)
+	# print('num_pages',paginator.num_pages)
+	current_page_num = int(request.GET.get("page", 1))
+	# 控制页数数量
+	if paginator.num_pages > 11:
+		if current_page_num -5 < 1:
+			page_range=range(1,12)
+		elif current_page_num + 5 > paginator.num_pages:
+			page_range=range(paginator.num_pages-10,paginator.num_pages+1)
+		else:
+			page_range=range(current_page_num-5,current_page_num+6)
+	else:
+		page_range=paginator.page_range
+
+	try:
+
+		current_page=paginator.page(current_page_num)
+	except EmptyPage as e:
+		current_page_num=paginator.page(1)
+
+
+	return render(request,"books.html",locals())
+	# return render(request,"books.html",{"book_list":book_list,"current_page":current_page,"current_page_num":current_page_num,"paginator":paginator})
 
 def chenge_book(request,edit_book_id):
 	edit_book_obj = Books.objects.filter(pk=edit_book_id).first()
